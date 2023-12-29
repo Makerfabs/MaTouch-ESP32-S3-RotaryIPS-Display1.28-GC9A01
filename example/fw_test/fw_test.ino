@@ -54,19 +54,19 @@ Arduino_GFX *gfx = new Arduino_GC9A01(bus, TFT_RES, 0 /* rotation */, true /* IP
 
 void setup(void)
 {
-    USBSerial.begin(115200);
+    //USBSerial.begin(115200);
 
     pin_init();
     Wire.begin(TOUCH_SDA, TOUCH_SCL);
     SPI.begin(SD_SCK, SD_MISO, SD_MOSI);
 
     delay(1000);
-    USBSerial.println("start");
+    //USBSerial.println("start");
 
     gfx->begin();
     if (!SD.begin(SD_CS))
     {
-        USBSerial.println(F("ERROR: File System Mount Failed!"));
+        //USBSerial.println(F("ERROR: File System Mount Failed!"));
 
         gfx->setTextSize(4);
         gfx->setCursor(10, 120);
@@ -78,7 +78,7 @@ void setup(void)
     {
         unsigned long start = millis();
         jpegDraw(JPEG_FILENAME, jpegDrawCallback, true, 0, 0, 240, 240);
-        USBSerial.printf("Time used: %lu\n", millis() - start);
+        //USBSerial.printf("Time used: %lu\n", millis() - start);
         delay(2000);
     }
 
@@ -98,10 +98,10 @@ void loop()
 
     if (read_touch(&x, &y) == 1)
     {
-        USBSerial.print("Touch ");
-        USBSerial.print(x);
-        USBSerial.print("\t");
-        USBSerial.println(y);
+        //USBSerial.print("Touch ");
+        //USBSerial.print(x);
+        //USBSerial.print("\t");
+        //USBSerial.println(y);
 
         flesh_flag = 1;
     }
@@ -113,7 +113,7 @@ void loop()
             flesh_flag = 1;
         }
 
-        USBSerial.println("Button Press");
+        //USBSerial.println("Button Press");
     }
     else
     {
@@ -126,8 +126,8 @@ void loop()
 
     if (move_flag == 1)
     {
-        USBSerial.print("Position: ");
-        USBSerial.println(counter);
+        //USBSerial.print("Position: ");
+        //USBSerial.println(counter);
         move_flag = 0;
         flesh_flag = 1;
     }
@@ -208,7 +208,7 @@ void page_1()
 // pixel drawing callback
 static int jpegDrawCallback(JPEGDRAW *pDraw)
 {
-    // USBSerial.printf("Draw pos = %d,%d. size = %d x %d\n", pDraw->x, pDraw->y, pDraw->iWidth, pDraw->iHeight);
+    // //USBSerial.printf("Draw pos = %d,%d. size = %d x %d\n", pDraw->x, pDraw->y, pDraw->iWidth, pDraw->iHeight);
     gfx->draw16bitBeRGBBitmap(pDraw->x, pDraw->y, pDraw->pPixels, pDraw->iWidth, pDraw->iHeight);
     return 1;
 }
